@@ -1,0 +1,268 @@
+[FRAME] Electra Modern Homepage
+  [FRAME] Main
+    [FRAME] Hero Section
+      [RECTANGLE] Gradient
+      [FRAME] Container
+        [FRAME] Container
+          [FRAME] Container
+            [TEXT] ENGINEERED FOR EXCELLENCE
+          [FRAME] Heading 1
+            [TEXT] MacBook
+Pro M3 Max.
+          [FRAME] Container
+            [TEXT] The world’s most advanced chips for personal
+computers. Now with hardware-accelerated ray
+tracing.
+          [FRAME] Container
+            [FRAME] Button
+              [TEXT] Pre-order Now
+            [FRAME] Button
+              [TEXT] Learn More
+        [FRAME] Container
+          [FRAME] MacBook Pro
+    [FRAME] Section - Categories Bento Grid
+      [FRAME] Container
+        [FRAME] Container
+          [FRAME] Container
+            [TEXT] COLLECTIONS
+          [FRAME] Heading 2
+            [TEXT] Browse Categories
+        [FRAME] Link
+          [TEXT] View All Departments
+          [FRAME] Container
+            [VECTOR] Icon
+      [FRAME] Container
+        [FRAME] Phones
+          [FRAME] AB6AXuAXqpIclJ6UTZy8Omxxr_G_TYKwnJ-xLKvBPH2O3Zwr6vnP3GtiLbos0orKU_t_-6dqmJKxQPCIgWM9Najb0gxDtN96KyEQg-LpXRWixHTVeCQUh4h05SrlwY3Y74aN-eK1JKBfx4OrEfOiKYsqdXY7GKVTOQLKZsHdPRCj9JMCYGsFuodqQyHGJvSMvutjS36XO8LAs-qa-IQCJi1ORym0-K009c6g0n-eB7GIjAlRtG368HucrrEm_aA95wa7pNt7ShsddI4eNJnP
+          [RECTANGLE] Gradient
+          [FRAME] Container
+            [FRAME] Container
+              [TEXT] MOBILE
+            [FRAME] Heading 3
+              [TEXT] Phones
+        [FRAME] Laptops
+          [FRAME] AB6AXuAWY_M6WEqtAFJdfqoFYxQ2jiporZImm1Ch2NQ6_Dcsmt0XirWYr-U7u5PoZk_IbiHZT385YhZM0pYEFxDY9kO0irfHDiUAHigJ182-fKDgVTEM_fxqfpolgIyocyMTQvk0FCIZpCpXEvlc8T_Sp1kN3PfS8IlcXJZiDpwVtGrfW3MApH2HbjwSGom5JYw6EbbY9v1B8W-jxzABr7bM30Uo_0JIbgpM2v-idgHj7GpyVO60o2RKrN23FROprpGvJcJDTrgHlaF_zmKl
+          [RECTANGLE] Gradient
+          [FRAME] Container
+            [FRAME] Container
+              [TEXT] COMPUTING
+            [FRAME] Heading 3
+              [TEXT] Laptops
+        [FRAME] Headphones
+          [FRAME] AB6AXuAFffnLVXrVg_p_CEyr_2EtIz7jjiNVcQZfEILTlqt8cIEvu7Gz3uqmJhzi30m4c326EJfeFkxQOXlcar_YwvMnYgDe_x0Xp1-vRcfGXnnuUp6GFx4hBZ_lgKOumuGuHh1XziPUNrZDCPRfBfSKamWI4Ga9__2cQCCJAnCRfBr_VRW8h33lHtSMT6cFwdsgDnPIomPuI8xBrSJ8VEa27Qs2qa5NI_jFht5cSMrozOaQXovzcvmIYvvRzfihiZTWq0ligu5A5oIAOEjh
+          [RECTANGLE] Gradient
+          [FRAME] Container
+            [FRAME] Container
+              [TEXT] AUDIO
+            [FRAME] Heading 3
+              [TEXT] Headphones
+        [FRAME] Spotlight Bar:margin
+          [FRAME] Spotlight Bar
+            [FRAME] Background+Border
+              [FRAME] Container
+                [TEXT] "The Electra collection represents
+the absolute peak of modern
+industrial design."
+              [FRAME] Margin
+                [FRAME] Container
+                  [FRAME] Margin
+                    [RECTANGLE] Background
+                  [FRAME] Container
+                    [TEXT] EDITORIAL TEAM PICK
+            [FRAME] Background+Border+Shadow
+              [RECTANGLE] Gradient
+              [FRAME] Container
+                [TEXT] 50%
+              [FRAME] Container
+                [FRAME] Heading 3
+                  [TEXT] Summer
+Sale Event.
+                [FRAME] Button
+                  [TEXT] Shop The Collection
+    [FRAME] Section - Trending Product Grid
+      [FRAME] Container
+        [FRAME] Container
+          [FRAME] Container
+            [TEXT] NEW ARRIVALS
+          [FRAME] Heading 2
+            [TEXT] Trending Now
+        [FRAME] Container
+          [FRAME] Product Card 1
+            [FRAME] Background+Border+Shadow
+              [FRAME] AB6AXuCoDNEGGpQvsVA2frIgEhTpV0A0t3zsJduzh_MXha1XRteA9XgrsVu07JoZfKJ8LtXVVyIWkK0AufLxBjSsy4Iid8xe_aWz4RFy0CiUTvVmFXnkStu7gIZzsqtfJB4wxq9pVx-ztKZgZzGDV_yOfXC7yTrJo4qSN211V7luJVGfK3KRHKQqlZzcgG3Ncsayx4at6DQ-4GxINSf2vJ9g4DasbxM3Ssk8tdi0qv5KoySKWD6GGzhKRx2UKhSgyqd8271sfm55t3RLclWD
+              [RECTANGLE] Gradient
+            [FRAME] Container
+              [FRAME] Container
+                [FRAME] Container
+                  [TEXT] SAMSUNG
+                [FRAME] Heading 3
+                  [TEXT] Galaxy S24 Ultra
+                [FRAME] Container
+                  [TEXT] $1,299.00
+              [FRAME] Button
+                [RECTANGLE] Button:shadow
+                [FRAME] Container
+                  [VECTOR] Icon
+          [FRAME] Product Card 2
+            [FRAME] Background+Border+Shadow
+              [FRAME] AB6AXuAiAYvMjpe92FDcGWKzCK7Lzm3-PrTnbcS4qX5W3H34HASGv16jOExslGT4ARFjLJJIJYv1J1tgWV96x0KXag-k3FG05NW50qYtJKXpjtpSbJMfHfSCMCybmBnUKTcphWeJPFD_iKqVXLzHLtvjL8gjRP5DBMdu9U9UQV__LrmbEBKMw0dhpUkc1zEr2czR2ARTufvtPenErkvOuw7lpSW4IVUpzYvwyad0sPYy6r1TSFGT_oW09OkybpaeeZPeP6QZ660ozZBKUFlA
+              [RECTANGLE] Gradient
+            [FRAME] Container
+              [FRAME] Container
+                [FRAME] Container
+                  [TEXT] SONY
+                [FRAME] Heading 3
+                  [TEXT] WH-1000XM5
+                [FRAME] Container
+                  [TEXT] $399.00
+              [FRAME] Button
+                [RECTANGLE] Button:shadow
+                [FRAME] Container
+                  [VECTOR] Icon
+          [FRAME] Product Card 3
+            [FRAME] Background+Border+Shadow
+              [FRAME] AB6AXuAs0VtP_QQxFu4og5YZY2nyDWmSHnKZ1gBz3UPJro_CllGx_O205rwtZlw2Cpy5Cb3412QQ4n0fS3-nYYjuel0dCZRS_EPOfP6NRFl8uATuQMaRePEVI13xNQeQGtL1sIzmREYiElKuxTBNZxGskiDRDb49MuaXZwEelyiY8bucPK0XFzUbiKdyqTkwrcfn4BTxMTyHf-Aeoey-6g6-37dWdTVbz0_h3cwjmkUyvF8QVqKoPIMYmXIY4lfpyd5t2w9E9y7nDETIoxEe
+              [RECTANGLE] Gradient
+            [FRAME] Container
+              [FRAME] Container
+                [FRAME] Container
+                  [TEXT] APPLE
+                [FRAME] Heading 3
+                  [TEXT] MacBook Air M2
+                [FRAME] Container
+                  [TEXT] $1,099.00
+              [FRAME] Button
+                [RECTANGLE] Button:shadow
+                [FRAME] Container
+                  [VECTOR] Icon
+          [FRAME] Product Card 4
+            [FRAME] Background+Border+Shadow
+              [FRAME] AB6AXuC6vyueIfgpaNWxbXIY_SzdAwCLjFDcxoYerXLZZMNYp-mgaWPktMTGAt2xQU3A63xLV7ZQ9SDtdFPBc2sgdf_2B1zwzCsM7lktbNcFl0XF2c7RWV_AEecwzOIxlTQJ8jolgFRGGHzqigvWB3487JrTPQEwVxDcKwYQTibNKYSZzbLH6jQ1PZUXyZ90OfDnc2wKtcJj3l9RsysfxTVTa_vCs-C2nNto-uLGOXFFjco9DRKPIjc9idAs4CEnDAFY4QJFogUcVHqpGZCq
+              [RECTANGLE] Gradient
+            [FRAME] Container
+              [FRAME] Container
+                [FRAME] Container
+                  [TEXT] BOSE
+                [FRAME] Heading 3
+                  [TEXT] QC Ultra
+                [FRAME] Container
+                  [TEXT] $429.00
+              [FRAME] Button
+                [RECTANGLE] Button:shadow
+                [FRAME] Container
+                  [VECTOR] Icon
+    [FRAME] Section - Partners
+      [FRAME] Heading 2
+        [TEXT] World-Class Partners
+      [FRAME] Paragraph+Background
+        [TEXT] APPLE
+        [TEXT] SONY
+        [TEXT] SAMSUNG
+        [TEXT] BOSE
+        [TEXT] DELL
+        [TEXT] LG
+    [FRAME] Section - Spec Accordion
+      [FRAME] Container
+        [FRAME] Container
+          [FRAME] Container
+            [TEXT] TECHNICAL SUPERIORITY
+          [FRAME] Heading 2
+            [TEXT] The Precision Edge
+        [FRAME] Container
+          [FRAME] Overlay+Border+Shadow
+            [FRAME] Button
+              [FRAME] Container
+                [TEXT] Ultra Retina XDR Display
+              [FRAME] Container
+                [VECTOR] Icon
+            [FRAME] Background+HorizontalBorder
+              [FRAME] Container
+                [TEXT] The most advanced display ever. Featuring 1600 nits peak brightness, 1,000,000:1 contrast ratio, and ProMotion
+technology with adaptive refresh rates up to 120Hz for incredibly smooth scrolling and responsive feel.
+          [FRAME] Border
+            [FRAME] Button
+              [FRAME] Container
+                [TEXT] Optical Fusion Lens Tech
+              [FRAME] Container
+                [VECTOR] Icon
+          [FRAME] Border
+            [FRAME] Button
+              [FRAME] Container
+                [TEXT] Neural Core Architecture
+              [FRAME] Container
+                [VECTOR] Icon
+  [FRAME] Footer
+    [FRAME] Container
+      [FRAME] Container
+        [FRAME] Container
+          [TEXT] Electra
+        [FRAME] Container
+          [TEXT] Precision electronics for the modern
+era. Curating the future of consumer
+technology since 2024.
+      [FRAME] Container
+        [FRAME] Heading 4
+          [TEXT] SHOP
+        [FRAME] List
+          [FRAME] Item
+            [TEXT] Smartphones
+          [FRAME] Item
+            [TEXT] Laptops & PC
+          [FRAME] Item
+            [TEXT] Audio & Vision
+      [FRAME] Container
+        [FRAME] Heading 4
+          [TEXT] SUPPORT
+        [FRAME] List
+          [FRAME] Item
+            [TEXT] Help Center
+          [FRAME] Item
+            [TEXT] Shipping Policy
+          [FRAME] Item
+            [TEXT] Terms & Privacy
+      [FRAME] Container
+        [FRAME] Heading 4
+          [TEXT] NEWSLETTER
+        [FRAME] Background+Border
+          [FRAME] Input
+            [FRAME] Container
+              [TEXT] Your email
+          [FRAME] Button
+            [FRAME] Container
+              [VECTOR] Icon
+    [FRAME] HorizontalBorder
+      [FRAME] Container
+        [TEXT] © 2024 Electra Precision Electronics.
+      [FRAME] Container
+        [FRAME] Container
+          [VECTOR] Icon
+        [FRAME] Margin
+          [FRAME] Container
+            [VECTOR] Icon
+  [FRAME] Header - TopAppBar
+    [FRAME] Container
+      [FRAME] Container
+        [TEXT] Electra
+      [FRAME] Nav
+        [FRAME] Link
+          [TEXT] Phones
+        [FRAME] Link:margin
+          [TEXT] Laptops
+        [FRAME] Link:margin
+          [TEXT] Headphones
+      [FRAME] Container
+        [FRAME] Background+Border
+          [FRAME] Container
+            [VECTOR] Icon
+          [FRAME] Input:margin
+            [FRAME] Input
+              [FRAME] Container
+                [TEXT] Search products...
+        [FRAME] Button:margin
+          [FRAME] Button
+            [FRAME] Container
+              [VECTOR] Icon
+        [FRAME] Button:margin
+          [FRAME] Button
+            [FRAME] Container
+              [VECTOR] Icon

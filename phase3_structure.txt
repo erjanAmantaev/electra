@@ -1,0 +1,323 @@
+\n====================\nEXTRACTING About Us (ID 1:2595)\n====================\n
+[FRAME] About Us
+  [FRAME] Main
+    [FRAME] Hero Section: Editorial Impact
+      [FRAME] Container
+        [FRAME] Container
+          [FRAME] Background
+            [TEXT] EST. 2024
+          [FRAME] Heading 1
+            [TEXT] Curating
+Luminous
+Intent.
+          [FRAME] Container
+            [TEXT] Electra is not a marketplace. It is a gallery of
+precision engineering, where minimalist aesthetics
+meet uncompromising performance.
+        [FRAME] Container
+          [FRAME] Overlay+Shadow
+            [FRAME] AB6AXuBJLozH8vznVIzeWTAn0JOutEkd22E45Emh8UZ1tpRQwyNWjWPFGV2VtKUBzTQJaC9Y21Ir9ygKY3owOX2DNqOF4z_vk5TsoMDOMtqtBRw9gWijasjm7SnJ-LvRY54fnI5xMlSEyv-TDFbgH5LAoPsayZKpX9OY0DeRtEiCKocVbY7s_l-sGXqy5-_O6mY8VrsV6OplziXg4q4r0BRF7yBl4e3dWV43np43TA4lqhbEGWXDEiKILU8Gq9GZX83EI3GAJDOeI2k5vXWl
+          [FRAME] Decorative Floating Element
+            [TEXT] 0.01mm
+            [TEXT] TOLERANCE THRESHOLD
+    [FRAME] Section - Values: Bento Grid Layout
+      [FRAME] Container
+        [FRAME] Container
+          [FRAME] Container
+            [FRAME] Heading 2
+              [TEXT] The Electra Standard
+            [FRAME] Container
+              [TEXT] We believe that the objects you surround yourself with should be as
+intentional as the life you lead.
+          [FRAME] Container
+            [FRAME] Margin
+        [FRAME] Container
+          [FRAME] Card 1: Precision
+            [FRAME] Container
+              [FRAME] Heading 3
+                [TEXT] Uncompromising Precision
+              [FRAME] Container
+                [TEXT] Every circuit, every seam, and every surface is
+scrutinized under 20x magnification to ensure
+perfection in every unit.
+            [FRAME] Margin
+              [FRAME] Container
+                [TEXT] Read our Craft Story
+                [FRAME] Container
+          [FRAME] Card 2: Minimalist Image
+            [FRAME] AB6AXuAr66h6hXzzmWgD8KpnwvdQ0V29_IO0uNvGvvhzdiHEyFEC7d3tvFYqPmx9aleu8nIYz16A-C6cLrHnKkCTGywR3t0CnPX2cQRL_V4B8P2Rxgq8sN15vBIqM9M6Gdy9kb8XkOjxl6GVBMKodAn8ZufHu7L-VFImGxPxWwyAcyPlPw1N6eoTXx8fZYELJOQkB6eStRa3rG3xdHURk9ciSO4DIqxSPliFDAg00UXYUUFCY6Ne_t4kD0XRcWAaGI0V84XYBDHSLnTfU3oX
+          [FRAME] Card 3: Experience
+            [FRAME] Container
+              [FRAME] Heading 3
+                [TEXT] The Haptic Experience
+              [FRAME] Container
+                [TEXT] We prioritize the sensation of use. The weight of a dial, the
+texture of a button, and the silence of a hinge.
+          [FRAME] Card 4: Curation
+            [FRAME] Container
+              [FRAME] Heading 3
+                [TEXT] Curated for Decades
+              [FRAME] Container
+                [TEXT] We don't follow trends. We select pieces built to last a generation,
+resisting planned obsolescence with timeless design.
+    [FRAME] Narrative: The Studio Section
+      [FRAME] Container
+        [FRAME] Container
+          [FRAME] AB6AXuBH0T6Ib795IaDWNxDBTeIEB1jupxTR3ObUWq95TAemE0rC-HqZU_LGryztnRrvr4AkmvRszstE6UkEilHhGqu5ZWyhmHMiunatvSxVG3D3q7vy-RJUsAkkIwRkCY0a5EBQ1E_rCyodL41qiaTZpNuJrO5thyOm6tqiMtAM0pIul9JzWYRExk2vTh81CRUm8P9wbNVNms5yPsjugCzV9C81uQkPXHBss1OXFFi0mV3BVK3F2H8goKG_E5scnKWNAtpOHa82WVZbVaWa
+      [FRAME] Container
+        [FRAME] Heading 4
+          [TEXT] OUR STUDIO
+        [FRAME] Heading 2
+          [TEXT] Where form
+honors function.
+        [FRAME] Container
+          [FRAME] Container
+            [TEXT] Headquartered in a converted glass factory, our studio serves as the heart
+of the Electra ethos. Here, designers and engineers collaborate in an
+environment of radical transparency.
+          [FRAME] Container
+            [TEXT] We believe that luxury is found in the removal of the unnecessary. By
+stripping away visual noise, we allow the intrinsic quality of materials—
+brushed titanium, sapphire glass, vegetable-tanned leather—to speak for
+themselves.
+        [FRAME] Container
+          [FRAME] Button
+            [TEXT] Explore the Workshop
+    [FRAME] Asymmetric Quote Section
+      [FRAME] Container
+        [FRAME] Container
+          [FRAME] Container
+            [TEXT] "Technology should be a silent
+companion, not a demanding
+master."
+        [FRAME] VerticalBorder
+          [FRAME] Container
+            [TEXT] "When we founded Electra, we looked at the landscape of high-
+end electronics and saw complexity masquerading as progress.
+We chose a different path—one where the user experience is as
+smooth as the surfaces of our products. We don't just sell devices;
+we sell the peace of mind that comes from owning something truly
+well-made."
+          [FRAME] Container
+            [FRAME] Container
+              [TEXT] Arthur Vance
+            [FRAME] Container
+              [TEXT] FOUNDER & CREATIVE LEAD
+    [FRAME] CTA Section
+      [FRAME] Container
+        [FRAME] AB6AXuBvpHnJ5HO_X_G8E06SwUEBV6THFWiR4tbyWG0JN0Src0Sxc6EHEHDbuIrA2AT4043rWiC8lIoryiankU6A-TIh0eKSg2gk-gTM94H0trdvecUo6-vU1V3qlxf_IHXPDrDbhdEReQdDVJGNRWZhZdwDtPTv_SPxXKKCnEJUasobfGzxTDyQW7VMPx0h6r9M6dPN9s9gV9akoUq5HgzvyqnusFEIClgWzS72hghELqkmBZgkwwR8qgdlN0HiYRC1IF61Z98W-70749_q
+      [FRAME] Container
+        [FRAME] Heading 2
+          [TEXT] Experience Electra.
+        [FRAME] Container
+          [TEXT] Join our private newsletter for early access to limited editions and designer
+collaborations.
+        [FRAME] Container
+          [FRAME] Input
+            [FRAME] Container
+              [TEXT] email@address.com
+          [FRAME] Button
+            [TEXT] Join
+Collective
+  [FRAME] Footer
+    [FRAME] Container
+      [FRAME] Container
+        [TEXT] Electra
+      [FRAME] Container
+        [FRAME] Link
+          [TEXT] PRIVACY
+        [FRAME] Link
+          [TEXT] TERMS
+        [FRAME] Link
+          [TEXT] SHIPPING
+        [FRAME] Link
+          [TEXT] RETURNS
+        [FRAME] Link
+          [TEXT] CONTACT
+      [FRAME] Container
+        [TEXT] © 2024 ELECTRA. CRAFTED WITH LUMINOUS INTENT.
+  [FRAME] TopNavBar
+    [FRAME] Container
+      [FRAME] Container
+        [TEXT] Electra
+      [FRAME] Container
+        [FRAME] Link
+          [TEXT] Shop
+        [FRAME] Link:margin
+          [TEXT] Cart
+        [FRAME] Link:margin
+          [FRAME] Link
+            [TEXT] About Us
+        [FRAME] Link:margin
+          [TEXT] Support
+      [FRAME] Container
+        [FRAME] Button
+          [FRAME] Container
+        [FRAME] Button:margin
+          [FRAME] Button
+            [FRAME] Container
+        [FRAME] Button:margin
+          [FRAME] Button
+            [FRAME] Container
+\n====================\nEXTRACTING Support Center (ID 1:2909)\n====================\n
+[FRAME] Support Center
+  [FRAME] Main
+    [FRAME] Section - Categories Grid (Asymmetric)
+      [FRAME] Shipping
+        [FRAME] Container
+          [FRAME] Container
+            [FRAME] Heading 3
+              [TEXT] Shipping
+            [FRAME] Container
+              [TEXT] Track your luminous deliveries, learn about international transit, and understand our
+sustainable packaging standards.
+          [FRAME] List
+            [FRAME] Item
+              [FRAME] Container
+                [TEXT] Track my package
+              [FRAME] Margin
+            [FRAME] Item
+              [FRAME] Container
+                [TEXT] Delivery timelines & zones
+              [FRAME] Margin
+      [FRAME] Returns
+        [FRAME] Heading 3
+          [TEXT] Returns
+        [FRAME] Container
+          [TEXT] Start a return process or check the status of your refund. 30-
+day hassle-free guarantee.
+        [FRAME] Button
+          [TEXT] Initiate Return
+      [FRAME] Warranty
+        [FRAME] Heading 3
+          [TEXT] Warranty
+        [FRAME] Container
+          [TEXT] Register your Electra device or file a claim. Every product
+includes a 2-year premium warranty.
+        [FRAME] List
+          [FRAME] Item
+            [FRAME] Container
+            [TEXT] What's covered?
+          [FRAME] Item
+            [FRAME] Container
+            [TEXT] Register a device
+      [FRAME] Account
+        [FRAME] Container
+          [FRAME] Heading 3
+            [TEXT] Account
+          [FRAME] Container
+            [TEXT] Manage your subscriptions, update security settings, and
+view your entire luminous order history.
+          [FRAME] Button
+            [TEXT] Manage Settings
+            [FRAME] Container
+        [FRAME] Container
+          [FRAME] AB6AXuAW86VkAdG44xYHxa46WaRfDAxkujmc4FijIGe65oQ3WTFfiVosv6KBuZyQpFwoxAb9Sn8b4Tchnrl1maeSKSzH4WJKxc7ez6b1k7VXia2ivrl2a21ywb_0nZfphXgbHY2zw1eoXMkn_erJk6DrE4Z_7VFnsutkZm3EWR_vmfkn50FXD8cUO0GsU9HCEg-BewyBzO8JPbzVqTKzvWDN_S4Vt4jSgmk_OuUKeZnNARfDvclK50rqf2ri3CtSFK4J65klj6UoScc7TlUs
+    [FRAME] Section - Popular Topics (Soft List)
+      [FRAME] Heading 2
+        [TEXT] Commonly Searched
+      [FRAME] Container
+        [FRAME] Container
+          [FRAME] Container
+            [TEXT] Setting up your Electra Hub for the first time
+          [FRAME] Container
+        [FRAME] Container
+          [FRAME] Container
+            [TEXT] Compatible devices and ecosystem integration
+          [FRAME] Container
+        [FRAME] Container
+          [FRAME] Container
+            [TEXT] Changing your payment method and billing cycle
+          [FRAME] Container
+        [FRAME] Container
+          [FRAME] Container
+            [TEXT] Troubleshooting connectivity and signal drops
+          [FRAME] Container
+    [FRAME] Hero Search Section
+      [FRAME] Container
+        [FRAME] Heading 1
+          [TEXT] How can we help you?
+        [FRAME] Container
+          [TEXT] Search our knowledge base for instant answers or explore categories to
+resolve your queries with luminous ease.
+        [FRAME] Container
+          [FRAME] Input
+            [FRAME] Container
+              [TEXT] Search for FAQs, orders, or technical terms...
+          [FRAME] Container
+            [FRAME] Container
+          [FRAME] Container
+            [FRAME] Button
+              [TEXT] Search
+    [FRAME] Contact Section (Glassmorphism & Floating)
+      [FRAME] Container
+        [FRAME] Background+Border+Shadow
+          [FRAME] Container
+            [FRAME] Heading 2
+              [TEXT] Still need help?
+            [FRAME] Container
+              [TEXT] Our support team is available 24/7 to ensure your
+experience remains nothing short of luminous.
+            [FRAME] Container
+              [FRAME] Button
+                [FRAME] Container
+                [TEXT] Live Chat
+              [FRAME] Button
+                [FRAME] Container
+                [TEXT] Email Us
+        [FRAME] Overlay+Border+OverlayBlur
+          [FRAME] Margin
+            [FRAME] Overlay
+              [FRAME] Container
+          [FRAME] Heading 4:margin
+            [FRAME] Heading 4
+              [TEXT] Wait Times
+          [FRAME] Margin
+            [FRAME] Container
+              [TEXT] Current estimated wait time for live
+chat:
+          [FRAME] Margin
+            [FRAME] Container
+              [TEXT] 2 Mins
+          [FRAME] Container
+            [TEXT] LIVE NOW
+  [FRAME] Footer
+    [FRAME] Container
+      [FRAME] Container
+        [TEXT] Electra
+      [FRAME] Container
+        [FRAME] Link
+          [TEXT] PRIVACY
+        [FRAME] Link
+          [TEXT] TERMS
+        [FRAME] Link
+          [TEXT] SHIPPING
+        [FRAME] Link
+          [TEXT] RETURNS
+        [FRAME] Link
+          [TEXT] CONTACT
+      [FRAME] Container
+        [TEXT] © 2024 ELECTRA. CRAFTED WITH LUMINOUS INTENT.
+  [FRAME] TopNavBar
+    [FRAME] Container
+      [FRAME] Container
+        [TEXT] Electra
+      [FRAME] Container
+        [FRAME] Link
+          [TEXT] Shop
+        [FRAME] Link:margin
+          [TEXT] Cart
+        [FRAME] Link:margin
+          [TEXT] About Us
+        [FRAME] Link:margin
+          [FRAME] Link
+            [TEXT] Support
+      [FRAME] Container
+        [FRAME] Button
+          [FRAME] Container
+        [FRAME] Button:margin
+          [FRAME] Button
+            [FRAME] Container
+        [FRAME] Button:margin
+          [FRAME] Button
+            [FRAME] Container
