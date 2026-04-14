@@ -42,7 +42,14 @@ function parseMultiParam(params: URLSearchParams, key: string) {
       .filter(Boolean);
 }
 
+function parsePageParam(params: URLSearchParams) {
+   const value = Number(params.get('page'));
+   if (!Number.isFinite(value) || value < 1) return 1;
+   return Math.floor(value);
+}
+
 const MIN_PRICE_FLOOR = 0;
+const PRODUCTS_PER_PAGE = 9;
 
 export default function Catalog() {
    const [searchParams, setSearchParams] = useSearchParams();
@@ -59,12 +66,39 @@ export default function Catalog() {
    const [minPrice, setMinPrice] = useState<number | ''>('');
    const [maxPrice, setMaxPrice] = useState<number | ''>('');
    const [ordering, setOrdering] = useState<ProductOrdering>('featured');
+   const [currentPage, setCurrentPage] = useState(parsePageParam(searchParams));
+
+   const totalPages = Math.max(1, Math.ceil(products.length / PRODUCTS_PER_PAGE));
+   const paginatedProducts = useMemo(() => {
+      const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
+      const end = start + PRODUCTS_PER_PAGE;
+      return products.slice(start, end);
+   }, [products, currentPage]);
+
+   const pageStart = products.length === 0 ? 0 : (currentPage - 1) * PRODUCTS_PER_PAGE + 1;
+   const pageEnd = Math.min(currentPage * PRODUCTS_PER_PAGE, products.length);
+
+   useEffect(() => {
+      if (currentPage > totalPages) {
+         const nextParams = new URLSearchParams(searchParams);
+         if (totalPages <= 1) {
+            nextParams.delete('page');
+         } else {
+            nextParams.set('page', String(totalPages));
+         }
+
+         if (nextParams.toString() !== searchParams.toString()) {
+            setSearchParams(nextParams, { replace: true });
+         }
+      }
+   }, [currentPage, totalPages, searchParams, setSearchParams]);
 
    useEffect(() => {
       const urlSearch = searchParams.get('search') ?? '';
       setSearchTerm(urlSearch);
       setSelectedCategories(parseMultiParam(searchParams, 'category'));
       setSelectedBrands(parseMultiParam(searchParams, 'brand'));
+      setCurrentPage(parsePageParam(searchParams));
    }, [searchParams]);
 
    useEffect(() => {
@@ -132,6 +166,27 @@ export default function Catalog() {
       const nextParams = new URLSearchParams(searchParams);
       nextParams.delete(key);
       values.forEach(value => nextParams.append(key, value));
+      nextParams.delete('page');
+      setSearchParams(nextParams, { replace: true });
+   };
+
+   const resetPagination = () => {
+      setCurrentPage(1);
+      const nextParams = new URLSearchParams(searchParams);
+      nextParams.delete('page');
+      setSearchParams(nextParams, { replace: true });
+   };
+
+   const goToPage = (page: number) => {
+      const nextPage = Math.max(1, Math.min(totalPages, page));
+      const nextParams = new URLSearchParams(searchParams);
+
+      if (nextPage <= 1) {
+         nextParams.delete('page');
+      } else {
+         nextParams.set('page', String(nextPage));
+      }
+
       setSearchParams(nextParams, { replace: true });
    };
 
@@ -144,6 +199,8 @@ export default function Catalog() {
       } else {
          nextParams.delete('search');
       }
+
+      nextParams.delete('page');
 
       setSearchParams(nextParams, { replace: true });
    };
@@ -180,17 +237,21 @@ export default function Catalog() {
    const handleMinPriceChange = (value: string) => {
       if (!value) {
          setMinPrice('');
+         resetPagination();
          return;
       }
       setMinPrice(Math.max(MIN_PRICE_FLOOR, Number(value)));
+      resetPagination();
    };
 
    const handleMaxPriceChange = (value: string) => {
       if (!value) {
          setMaxPrice('');
+         resetPagination();
          return;
       }
       setMaxPrice(Math.max(MIN_PRICE_FLOOR, Number(value)));
+      resetPagination();
    };
 
    return (
@@ -294,7 +355,10 @@ export default function Catalog() {
                         <button
                            key={value}
                            type="button"
-                           onClick={() => setMinRating(value)}
+                           onClick={() => {
+                              setMinRating(value);
+                              resetPagination();
+                           }}
                            className={`px-3 py-2 border rounded-lg text-xs font-medium transition-colors ${
                               minRating === value
                                  ? 'border-primary bg-primary/10 text-primary'
@@ -323,7 +387,7 @@ export default function Catalog() {
                   <div>
                      <h1 className="text-4xl font-heading font-black tracking-tight mb-2">All Products</h1>
                      <p className="text-text-secondary">
-                        {loading ? 'Loading products...' : `Showing ${products.length} products matching your filters.`}
+                        {loading ? 'Loading products...' : `Showing ${pageStart}-${pageEnd} of ${products.length} products.`}
                      </p>
                   </div>
 
@@ -355,7 +419,10 @@ export default function Catalog() {
                            <button
                               key={option.value}
                               type="button"
-                              onClick={() => setOrdering(option.value)}
+                              onClick={() => {
+                                 setOrdering(option.value);
+                                 resetPagination();
+                              }}
                               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                                  ordering === option.value
                                     ? 'bg-background border border-border shadow-sm text-text-primary'
@@ -395,8 +462,9 @@ export default function Catalog() {
                   </button>
                </div>
             ) : (
-               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                  {products.map(product => (
+               <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                  {paginatedProducts.map(product => (
                      <Link
                         key={product.slug}
                         to={`/product/${product.slug}`}
@@ -436,7 +504,45 @@ export default function Catalog() {
                         </div>
                      </Link>
                   ))}
-               </div>
+                  </div>
+
+                  {totalPages > 1 && (
+                     <div className="flex items-center justify-center gap-2 mb-16 flex-wrap">
+                        <button
+                           type="button"
+                           onClick={() => goToPage(currentPage - 1)}
+                           disabled={currentPage === 1}
+                           className="px-3 py-2 rounded-lg border border-border text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface transition-colors"
+                        >
+                           Prev
+                        </button>
+
+                        {Array.from({ length: totalPages }, (_, index) => index + 1).map(page => (
+                           <button
+                              key={page}
+                              type="button"
+                              onClick={() => goToPage(page)}
+                              className={`min-w-10 px-3 py-2 rounded-lg border text-sm transition-colors ${
+                                 currentPage === page
+                                    ? 'border-primary bg-primary text-white'
+                                    : 'border-border hover:bg-surface'
+                              }`}
+                           >
+                              {page}
+                           </button>
+                        ))}
+
+                        <button
+                           type="button"
+                           onClick={() => goToPage(currentPage + 1)}
+                           disabled={currentPage === totalPages}
+                           className="px-3 py-2 rounded-lg border border-border text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-surface transition-colors"
+                        >
+                           Next
+                        </button>
+                     </div>
+                  )}
+               </>
             )}
          </main>
       </div>

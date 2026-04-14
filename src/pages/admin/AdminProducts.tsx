@@ -241,6 +241,8 @@ export default function AdminProducts() {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [categorySaving, setCategorySaving] = useState(false);
+  const [deactivatingId, setDeactivatingId] = useState<number | null>(null);
+  const [pendingDeactivation, setPendingDeactivation] = useState<AdminProduct | null>(null);
   const [error, setError] = useState('');
   const [editingProductId, setEditingProductId] = useState<number | null>(null);
   const [editingCategoryId, setEditingCategoryId] = useState<number | null>(null);
@@ -415,20 +417,24 @@ export default function AdminProducts() {
     }
   };
 
-  const handleDeactivate = async (product: AdminProduct) => {
-    if (!token) return;
+  const handleDeactivate = (product: AdminProduct) => {
+    setPendingDeactivation(product);
+  };
 
-    if (!window.confirm(`Deactivate ${product.name}?`)) {
-      return;
-    }
+  const confirmDeactivate = async () => {
+    if (!token || !pendingDeactivation) return;
 
+    setDeactivatingId(pendingDeactivation.id);
     try {
-      await deactivateAdminProduct(token, product.id);
+      await deactivateAdminProduct(token, pendingDeactivation.id);
       toast.success('Product deactivated.');
+      setPendingDeactivation(null);
       await loadProducts();
     } catch (deactivateError) {
       const message = deactivateError instanceof Error ? deactivateError.message : 'Unable to deactivate product.';
       toast.error(message);
+    } finally {
+      setDeactivatingId(null);
     }
   };
 
@@ -939,7 +945,7 @@ export default function AdminProducts() {
                   {product.is_active ? (
                     <button
                       type="button"
-                      onClick={() => void handleDeactivate(product)}
+                      onClick={() => handleDeactivate(product)}
                       className="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-error/30 text-error text-xs font-bold uppercase tracking-widest hover:bg-error/10"
                     >
                       <Power className="w-3 h-3" /> Deactivate
@@ -959,6 +965,48 @@ export default function AdminProducts() {
           </div>
         )}
       </section>
+
+      {pendingDeactivation && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center px-4">
+          <button
+            type="button"
+            aria-label="Close deactivation dialog"
+            onClick={() => {
+              if (deactivatingId !== pendingDeactivation.id) {
+                setPendingDeactivation(null);
+              }
+            }}
+            className="absolute inset-0 bg-foreground/55"
+          />
+
+          <div className="relative w-full max-w-md rounded-2xl border border-border bg-surface p-6 shadow-2xl">
+            <p className="text-[11px] font-bold tracking-widest uppercase text-error mb-3">Deactivate Product</p>
+            <h3 className="text-xl font-heading font-black mb-2">{pendingDeactivation.name}</h3>
+            <p className="text-sm text-text-secondary leading-relaxed">
+              Are you sure you want to deactivate this product? It will be hidden from the customer catalog until reactivated.
+            </p>
+
+            <div className="mt-6 flex items-center justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setPendingDeactivation(null)}
+                disabled={deactivatingId === pendingDeactivation.id}
+                className="px-4 py-2 rounded-lg border border-border text-sm font-medium hover:bg-background transition-colors disabled:opacity-60"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => void confirmDeactivate()}
+                disabled={deactivatingId === pendingDeactivation.id}
+                className="px-4 py-2 rounded-lg bg-error text-white text-sm font-bold hover:opacity-90 transition-opacity disabled:opacity-60"
+              >
+                {deactivatingId === pendingDeactivation.id ? 'Deactivating...' : 'Yes, deactivate'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

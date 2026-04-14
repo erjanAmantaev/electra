@@ -2,6 +2,38 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## Deploy To GitHub Pages
+
+This project is configured for deployment to the `electra` repository GitHub Pages URL.
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Publish to GitHub Pages:
+
+```bash
+npm run deploy
+```
+
+The deploy command automatically clears the local `gh-pages` cache to prevent the `fatal: a branch named 'gh-pages' already exists` error.
+
+The deploy script publishes `dist` directly to `https://github.com/erjanAmantaev/electra` on branch `gh-pages`.
+
+What is already configured:
+
+- Production build base path is `/electra/` in Vite.
+- Routing uses `HashRouter` so deep links work on GitHub Pages.
+- Deploy command publishes the `dist` folder to the `gh-pages` branch of `erjanAmantaev/electra`.
+
+After first deploy, enable GitHub Pages in repository settings:
+
+- Source: `Deploy from a branch`
+- Branch: `gh-pages`
+- Folder: `/ (root)`
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)

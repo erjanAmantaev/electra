@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Search, ShoppingCart, User, Sun, Moon } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Search, ShoppingCart, User, Sun, Moon, Menu, X } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
@@ -11,9 +11,14 @@ export default function Navbar() {
   const { isAuthenticated, user } = useAuth();
   const { itemCount } = useCart();
   const [search, setSearch] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const displayName = user ? `${user.first_name} ${user.last_name}`.trim() || user.username : '';
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname, location.search]);
 
   const categoryParam = new URLSearchParams(location.search).get('category');
   const activeNavKey = (() => {
@@ -29,6 +34,7 @@ export default function Navbar() {
     e.preventDefault();
     const term = search.trim();
     navigate(term ? `/catalog?search=${encodeURIComponent(term)}` : '/catalog');
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -110,6 +116,15 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-6">
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(value => !value)}
+            className="p-2 hover:bg-surface hover:text-primary transition-colors rounded-full md:hidden"
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+
           <form onSubmit={handleSearchSubmit} className="hidden lg:flex items-center relative">
             <Search className="absolute left-3 w-4 h-4 text-text-tertiary" />
             <input
@@ -159,6 +174,49 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
+
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur">
+          <div className="px-6 py-4 flex flex-col gap-4">
+            <form onSubmit={handleSearchSubmit} className="flex items-center relative">
+              <Search className="absolute left-3 w-4 h-4 text-text-tertiary" />
+              <input
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                type="text"
+                placeholder="Search products..."
+                className="w-full pl-9 pr-4 py-2.5 bg-surface border border-border rounded-full text-sm outline-none focus:border-primary"
+              />
+            </form>
+
+            <nav className="flex flex-col gap-2 text-sm font-semibold">
+              <Link to="/catalog" className="px-3 py-2 rounded-lg hover:bg-surface transition-colors">Catalog</Link>
+              <Link to="/catalog?category=smartphones" className="px-3 py-2 rounded-lg hover:bg-surface transition-colors">Phones</Link>
+              <Link to="/about" className="px-3 py-2 rounded-lg hover:bg-surface transition-colors">About Us</Link>
+              <Link to="/support" className="px-3 py-2 rounded-lg hover:bg-surface transition-colors">Support</Link>
+              {user?.is_admin && (
+                <Link to="/admin" className="px-3 py-2 rounded-lg hover:bg-surface transition-colors">Admin</Link>
+              )}
+            </nav>
+
+            {!isAuthenticated ? (
+              <Link
+                to="/login"
+                className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-surface border border-border text-sm font-bold hover:bg-surface-hover transition-colors"
+              >
+                <User className="w-4 h-4" /> Sign In
+              </Link>
+            ) : (
+              <Link
+                to="/profile"
+                className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-surface border border-border text-sm font-bold hover:bg-surface-hover transition-colors"
+              >
+                <User className="w-4 h-4" /> {displayName || 'Profile'}
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 }
