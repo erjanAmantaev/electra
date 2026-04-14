@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { CalendarDays, PencilLine, Plus, Power, RefreshCw, Search, Trash2 } from 'lucide-react';
+import { CalendarDays, PencilLine, Plus, RefreshCw, Search, Trash2 } from 'lucide-react';
 import Select, { type SingleValue, type StylesConfig } from 'react-select';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -510,457 +510,469 @@ export default function AdminProducts() {
   };
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_1fr] gap-6">
-      <section className="bg-surface border border-border rounded-2xl p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-heading font-black">{editingProduct ? `Edit ${editingProduct.name}` : 'Add Product'}</h2>
-          {editingProduct && (
+    <div className="space-y-5">
+      <div className="grid grid-cols-1 xl:grid-cols-[1.08fr_1.22fr] gap-5">
+        <section className="rounded-[28px] border border-[#dde5f1] bg-white p-5 md:p-6">
+          <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center gap-3">
+              <span className="w-10 h-10 rounded-xl bg-[#e8efff] text-[#1a5ee8] flex items-center justify-center">
+                <Plus className="w-4 h-4" />
+              </span>
+              <div>
+                <h2 className="text-3xl font-heading font-black text-slate-800">{editingProduct ? `Edit ${editingProduct.name}` : 'Add New Product'}</h2>
+                <p className="text-xs text-slate-500">Insert a new device into your catalog.</p>
+              </div>
+            </div>
+            {editingProduct && (
+              <button
+                type="button"
+                onClick={resetForm}
+                className="px-3 py-1.5 rounded-full bg-[#edf2fa] text-xs font-bold text-slate-600"
+              >
+                Reset Form
+              </button>
+            )}
+          </div>
+
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <FieldLabel>Product Name</FieldLabel>
+              <input
+                value={form.name}
+                onChange={event => updateField('name', event.target.value)}
+                placeholder="e.g. iPhone 15 Pro Max"
+                className="w-full bg-[#f2f5fa] border border-[#e1e8f3] rounded-2xl px-4 py-3 text-sm outline-none focus:border-[#1a5ee8]"
+                required
+              />
+            </div>
+
+            <div>
+              <FieldLabel>Brand</FieldLabel>
+              <input
+                value={form.brand}
+                onChange={event => updateField('brand', event.target.value)}
+                placeholder="e.g. Apple"
+                className="w-full bg-[#f2f5fa] border border-[#e1e8f3] rounded-2xl px-4 py-3 text-sm outline-none focus:border-[#1a5ee8]"
+                required
+              />
+            </div>
+
+            <div>
+              <FieldLabel>Category</FieldLabel>
+              <Select<CategoryOption, false>
+                options={categoryOptions}
+                value={selectedCategory}
+                onChange={(option: SingleValue<CategoryOption>) => {
+                  if (option) updateField('category', option.value);
+                }}
+                placeholder={categories.length > 0 ? 'Choose category' : 'Add category first'}
+                isDisabled={categories.length === 0}
+                styles={categorySelectStyles}
+                menuPlacement="auto"
+                menuPortalTarget={typeof window !== 'undefined' ? document.body : undefined}
+                isSearchable={false}
+              />
+            </div>
+
+            <div>
+              <FieldLabel>Base Price ($)</FieldLabel>
+              <input
+                value={form.price}
+                onChange={event => updateField('price', event.target.value)}
+                placeholder="999.00"
+                className="w-full bg-[#f2f5fa] border border-[#e1e8f3] rounded-2xl px-4 py-3 text-sm outline-none focus:border-[#1a5ee8]"
+                required
+              />
+            </div>
+
+            <div>
+              <FieldLabel>Compare-At Price</FieldLabel>
+              <input
+                value={form.compare_at_price}
+                onChange={event => updateField('compare_at_price', event.target.value)}
+                placeholder="Optional"
+                className="w-full bg-[#f2f5fa] border border-[#e1e8f3] rounded-2xl px-4 py-3 text-sm outline-none focus:border-[#1a5ee8]"
+              />
+            </div>
+
+            <div>
+              <FieldLabel>Initial Stock</FieldLabel>
+              <input
+                type="number"
+                min={0}
+                value={form.stock}
+                onChange={event => updateField('stock', Number(event.target.value) || 0)}
+                placeholder="50"
+                className="w-full bg-[#f2f5fa] border border-[#e1e8f3] rounded-2xl px-4 py-3 text-sm outline-none focus:border-[#1a5ee8]"
+                required
+              />
+            </div>
+
+            <div>
+              <FieldLabel>Release Date</FieldLabel>
+              <div className="relative">
+                <CalendarDays className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none z-10" />
+                <DatePicker
+                  selected={parseReleaseDate(form.released_at)}
+                  onChange={(value: Date | null) => updateField('released_at', formatReleaseDate(value))}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select date"
+                  isClearable
+                  showMonthDropdown
+                  showYearDropdown
+                  dropdownMode="select"
+                  wrapperClassName="w-full"
+                  className="w-full bg-[#f2f5fa] border border-[#e1e8f3] rounded-2xl pl-10 pr-4 py-3 text-sm outline-none focus:border-[#1a5ee8]"
+                  calendarClassName="electra-datepicker"
+                  popperClassName="electra-datepicker-popper"
+                  showPopperArrow={false}
+                />
+              </div>
+            </div>
+
+            <div>
+              <FieldLabel>Badge</FieldLabel>
+              <input
+                value={form.badge}
+                onChange={event => updateField('badge', event.target.value)}
+                placeholder="New Arrival"
+                className="w-full bg-[#f2f5fa] border border-[#e1e8f3] rounded-2xl px-4 py-3 text-sm outline-none focus:border-[#1a5ee8]"
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <FieldLabel>Main Image URL</FieldLabel>
+              <input
+                value={form.image_url}
+                onChange={event => updateField('image_url', event.target.value)}
+                placeholder="https://..."
+                className="w-full bg-[#f2f5fa] border border-[#e1e8f3] rounded-2xl px-4 py-3 text-sm outline-none focus:border-[#1a5ee8]"
+                required
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <FieldLabel>Product Description</FieldLabel>
+              <textarea
+                value={form.short_description}
+                onChange={event => updateField('short_description', event.target.value)}
+                placeholder="Brief technical specifications..."
+                className="w-full bg-[#f2f5fa] border border-[#e1e8f3] rounded-3xl px-4 py-3 text-sm outline-none focus:border-[#1a5ee8] resize-none"
+                rows={3}
+                required
+              ></textarea>
+            </div>
+
+            <div className="md:col-span-2 rounded-2xl border border-[#e3eaf5] bg-[#f8faff] p-4 space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-xs font-bold tracking-widest uppercase text-slate-500">Advanced Fields</p>
+                <div className="flex items-center gap-2">
+                  <label className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600">
+                    <input
+                      type="checkbox"
+                      checked={form.is_featured}
+                      onChange={event => updateField('is_featured', event.target.checked)}
+                    />
+                    Featured
+                  </label>
+                  <label className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600">
+                    <input
+                      type="checkbox"
+                      checked={form.is_active}
+                      onChange={event => updateField('is_active', event.target.checked)}
+                    />
+                    Active
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-xs font-bold tracking-widest uppercase text-slate-500">Full Description Paragraphs</p>
+                  <button
+                    type="button"
+                    onClick={addDescriptionBlock}
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#d7dfec] text-xs font-bold uppercase tracking-widest bg-white"
+                  >
+                    <Plus className="w-3 h-3" /> Add Paragraph
+                  </button>
+                </div>
+                <div className="space-y-2">
+                  {form.description_blocks.map((paragraph, index) => (
+                    <div key={`description-${index}`}>
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-[11px] font-bold tracking-widest uppercase text-slate-500">Paragraph {index + 1}</p>
+                        {form.description_blocks.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeDescriptionBlock(index)}
+                            className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-rose-500"
+                          >
+                            <Trash2 className="w-3 h-3" /> Remove
+                          </button>
+                        )}
+                      </div>
+                      <textarea
+                        value={paragraph}
+                        onChange={event => updateDescriptionBlock(index, event.target.value)}
+                        placeholder="Write this section of the full description..."
+                        className="w-full bg-white border border-[#dce3ef] rounded-xl px-3 py-2 text-sm outline-none focus:border-[#1a5ee8]"
+                        rows={3}
+                      ></textarea>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-xs font-bold tracking-widest uppercase text-slate-500">Specifications</p>
+                  <button
+                    type="button"
+                    onClick={addSpecRow}
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#d7dfec] text-xs font-bold uppercase tracking-widest bg-white"
+                  >
+                    <Plus className="w-3 h-3" /> Add Spec
+                  </button>
+                </div>
+                <div className="space-y-2">
+                  {form.specs.map((row, index) => (
+                    <div key={`spec-${index}`} className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] gap-2 items-center">
+                      <input
+                        value={row.key}
+                        onChange={event => updateSpecRow(index, 'key', event.target.value)}
+                        placeholder="Field name"
+                        className="w-full min-w-0 bg-white border border-[#dce3ef] rounded-xl px-3 py-2 text-sm outline-none focus:border-[#1a5ee8]"
+                      />
+                      <input
+                        value={row.value}
+                        onChange={event => updateSpecRow(index, 'value', event.target.value)}
+                        placeholder="Value"
+                        className="w-full min-w-0 bg-white border border-[#dce3ef] rounded-xl px-3 py-2 text-sm outline-none focus:border-[#1a5ee8]"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeSpecRow(index)}
+                        className="justify-self-start sm:justify-self-auto inline-flex items-center justify-center w-9 h-9 rounded-lg border border-[#dce3ef] text-rose-500 bg-white"
+                        aria-label="Remove specification row"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-xs font-bold tracking-widest uppercase text-slate-500">Gallery Image URLs</p>
+                  <button
+                    type="button"
+                    onClick={addGalleryRow}
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#d7dfec] text-xs font-bold uppercase tracking-widest bg-white"
+                  >
+                    <Plus className="w-3 h-3" /> Add Image
+                  </button>
+                </div>
+                <div className="space-y-2">
+                  {form.gallery.map((url, index) => (
+                    <div key={`gallery-${index}`} className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] gap-2 items-center">
+                      <input
+                        value={url}
+                        onChange={event => updateGalleryRow(index, event.target.value)}
+                        placeholder="https://..."
+                        className="w-full min-w-0 bg-white border border-[#dce3ef] rounded-xl px-3 py-2 text-sm outline-none focus:border-[#1a5ee8]"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeGalleryRow(index)}
+                        className="justify-self-start sm:justify-self-auto inline-flex items-center justify-center w-9 h-9 rounded-lg border border-[#dce3ef] text-rose-500 bg-white"
+                        aria-label="Remove gallery row"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={saving}
+              className="md:col-span-2 mt-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-[#1a5ee8] text-white text-sm font-bold shadow-[0_12px_30px_rgba(26,94,232,0.35)] hover:opacity-95 transition-opacity disabled:opacity-60"
+            >
+              {editingProduct ? <PencilLine className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+              {saving ? 'Saving...' : editingProduct ? 'Update Product' : 'Create Product Entry'}
+            </button>
+          </form>
+        </section>
+
+        <section className="rounded-[28px] border border-[#dde5f1] bg-[#edf2fa] p-5 md:p-6">
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 className="text-3xl font-heading font-black text-slate-800">Catalog Inventory</h2>
+              <p className="text-sm text-slate-500">Live view of current availability and pricing.</p>
+            </div>
             <button
               type="button"
-              onClick={resetForm}
-              className="text-xs font-bold uppercase tracking-widest text-text-tertiary hover:text-primary"
+              onClick={() => void loadProducts()}
+              className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-[#1a5ee8]"
             >
-              Clear Form
+              <RefreshCw className="w-3 h-3" /> Refresh
+            </button>
+          </div>
+
+          <div className="relative mb-4">
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input
+              value={search}
+              onChange={event => setSearch(event.target.value)}
+              onKeyDown={event => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  void loadProducts();
+                }
+              }}
+              placeholder="Search products..."
+              className="w-full bg-white border border-[#dce3ef] rounded-full pl-9 pr-4 py-2.5 text-sm outline-none focus:border-[#1a5ee8]"
+            />
+          </div>
+
+          {error ? (
+            <div className="border border-error/30 bg-error/10 text-error rounded-xl px-4 py-3 text-sm mb-3">{error}</div>
+          ) : null}
+
+          {loading ? (
+            <p className="text-sm text-slate-500">Loading products...</p>
+          ) : products.length === 0 ? (
+            <p className="text-sm text-slate-500">No products found.</p>
+          ) : (
+            <div className="flex flex-col gap-3 max-h-[980px] overflow-y-auto pr-1">
+              {products.map(product => (
+                <article key={product.id} className="rounded-2xl border border-[#dce3ef] bg-white px-3 py-3.5 flex items-center gap-3">
+                  <img
+                    src={product.image_url}
+                    alt={product.name}
+                    className="w-14 h-14 rounded-full object-cover border border-[#dde5f1]"
+                  />
+
+                  <div className="min-w-0 flex-1">
+                    <p className="font-bold text-slate-800 truncate">{product.name}</p>
+                    <p className="text-[11px] text-slate-500 mt-0.5">${Number(product.price).toFixed(2)} • {product.stock} units • {product.brand}</p>
+                  </div>
+
+                  <span
+                    className={`text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${
+                      product.is_active ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                    }`}
+                  >
+                    {product.is_active ? 'Active' : 'Inactive'}
+                  </span>
+
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => handleEdit(product)}
+                      className="px-3 py-1.5 rounded-full bg-[#eef2f8] text-[10px] font-bold uppercase tracking-widest text-slate-600 hover:text-[#1a5ee8]"
+                    >
+                      Edit
+                    </button>
+
+                    {product.is_active ? (
+                      <button
+                        type="button"
+                        onClick={() => handleDeactivate(product)}
+                        className="px-3 py-1.5 rounded-full bg-[#eef2f8] text-[10px] font-bold uppercase tracking-widest text-slate-600 hover:text-rose-600"
+                      >
+                        Deactivate
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => void handleReactivate(product)}
+                        className="px-3 py-1.5 rounded-full bg-[#eef2f8] text-[10px] font-bold uppercase tracking-widest text-slate-600 hover:text-emerald-600"
+                      >
+                        Reactivate
+                      </button>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
+
+      <section className="rounded-[28px] border border-[#dde5f1] bg-white p-5 md:p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-2xl font-heading font-black text-slate-800">Add Category</h3>
+          {editingCategoryId && (
+            <button
+              type="button"
+              onClick={resetCategoryEditor}
+              className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-[#1a5ee8]"
+            >
+              Cancel Edit
             </button>
           )}
         </div>
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="md:col-span-2 bg-background border border-border rounded-xl p-4">
-            <div className="flex items-center justify-between mb-3">
-              <FieldLabel>Manage Categories</FieldLabel>
-              {editingCategoryId && (
-                <button
-                  type="button"
-                  onClick={resetCategoryEditor}
-                  className="text-xs font-bold uppercase tracking-widest text-text-tertiary hover:text-primary"
-                >
-                  Cancel Edit
-                </button>
-              )}
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] gap-2 mb-3">
-              <input
-                value={categoryNameInput}
-                onChange={event => setCategoryNameInput(event.target.value)}
-                placeholder="Category name (e.g. Smart Home)"
-                className="w-full min-w-0 bg-surface border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-primary"
-              />
-              <input
-                value={categorySlugInput}
-                onChange={event => setCategorySlugInput(normalizeCategorySlug(event.target.value))}
-                placeholder="Slug (optional)"
-                className="w-full min-w-0 bg-surface border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-primary"
-              />
-              <button
-                type="button"
-                onClick={() => void handleCategorySubmit()}
-                disabled={categorySaving}
-                className="justify-self-start sm:justify-self-auto inline-flex items-center gap-1 px-3 py-2 rounded-lg bg-text-primary text-background text-xs font-bold uppercase tracking-widest hover:bg-primary disabled:opacity-60"
-              >
-                <Plus className="w-3 h-3" /> {categorySaving ? 'Saving...' : editingCategoryId ? 'Update' : 'Add'}
-              </button>
-            </div>
-
-            {categories.length === 0 ? (
-              <p className="text-xs text-text-secondary">No categories yet. Add your first category to start creating products.</p>
-            ) : (
-              <div className="flex flex-col gap-2 max-h-44 overflow-y-auto pr-1">
-                {categories.map(category => (
-                  <div key={category.id} className="flex items-center justify-between gap-3 rounded-lg border border-border bg-surface px-3 py-2">
-                    <div className="min-w-0">
-                      <p className="text-sm font-bold truncate">{category.name}</p>
-                      <p className="text-[11px] text-text-tertiary uppercase tracking-widest">{category.slug}</p>
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded border border-border text-text-tertiary">
-                        {category.product_count} products
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => startCategoryEdit(category)}
-                        className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-border hover:bg-background"
-                        aria-label={`Edit category ${category.name}`}
-                      >
-                        <PencilLine className="w-3 h-3" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => void handleDeleteCategory(category)}
-                        className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-border text-error hover:bg-error/10"
-                        aria-label={`Delete category ${category.name}`}
-                      >
-                        <Trash2 className="w-3 h-3" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="md:col-span-2">
-            <FieldLabel>Product Name</FieldLabel>
-            <input
-              value={form.name}
-              onChange={event => updateField('name', event.target.value)}
-              placeholder="e.g. Pixel Prime X"
-              className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-primary"
-              required
-            />
-          </div>
-
-          <div>
-            <FieldLabel>Brand</FieldLabel>
-            <input
-              value={form.brand}
-              onChange={event => updateField('brand', event.target.value)}
-              placeholder="e.g. Google"
-              className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-primary"
-              required
-            />
-          </div>
-
-          <div>
-            <FieldLabel>Category</FieldLabel>
-            <Select<CategoryOption, false>
-              options={categoryOptions}
-              value={selectedCategory}
-              onChange={(option: SingleValue<CategoryOption>) => {
-                if (option) updateField('category', option.value);
-              }}
-              placeholder={categories.length > 0 ? 'Choose category' : 'Add category first'}
-              isDisabled={categories.length === 0}
-              styles={categorySelectStyles}
-              menuPlacement="auto"
-              menuPortalTarget={typeof window !== 'undefined' ? document.body : undefined}
-              isSearchable={false}
-            />
-          </div>
-
-          <div>
-            <FieldLabel>Price</FieldLabel>
-            <input
-              value={form.price}
-              onChange={event => updateField('price', event.target.value)}
-              placeholder="e.g. 799.00"
-              className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-primary"
-              required
-            />
-          </div>
-
-          <div>
-            <FieldLabel>Compare-At Price (Optional)</FieldLabel>
-            <input
-              value={form.compare_at_price}
-              onChange={event => updateField('compare_at_price', event.target.value)}
-              placeholder="e.g. 999.00"
-              className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-primary"
-            />
-          </div>
-
-          <div>
-            <FieldLabel>Stock Quantity</FieldLabel>
-            <input
-              type="number"
-              min={0}
-              value={form.stock}
-              onChange={event => updateField('stock', Number(event.target.value) || 0)}
-              placeholder="0"
-              className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-primary"
-              required
-            />
-          </div>
-
-          <div>
-            <FieldLabel>Release Date (Optional)</FieldLabel>
-            <div className="relative">
-              <CalendarDays className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary pointer-events-none z-10" />
-              <DatePicker
-                selected={parseReleaseDate(form.released_at)}
-                onChange={(value: Date | null) => updateField('released_at', formatReleaseDate(value))}
-                dateFormat="yyyy-MM-dd"
-                placeholderText="Select release date"
-                isClearable
-                showMonthDropdown
-                showYearDropdown
-                dropdownMode="select"
-                wrapperClassName="w-full"
-                className="w-full bg-background border border-border rounded-xl pl-10 pr-4 py-3 text-sm outline-none focus:border-primary"
-                calendarClassName="electra-datepicker"
-                popperClassName="electra-datepicker-popper"
-                showPopperArrow={false}
-              />
-            </div>
-          </div>
-
-          <div>
-            <FieldLabel>Badge (Optional)</FieldLabel>
-            <input
-              value={form.badge}
-              onChange={event => updateField('badge', event.target.value)}
-              placeholder="e.g. New Arrival"
-              className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-primary"
-            />
-          </div>
-
-          <div className="md:col-span-2">
-            <FieldLabel>Main Image URL</FieldLabel>
-            <input
-              value={form.image_url}
-              onChange={event => updateField('image_url', event.target.value)}
-              placeholder="https://..."
-              className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-primary"
-              required
-            />
-          </div>
-
-          <div className="md:col-span-2">
-            <FieldLabel>Short Description</FieldLabel>
-            <textarea
-              value={form.short_description}
-              onChange={event => updateField('short_description', event.target.value)}
-              placeholder="One concise sentence that appears in cards and lists."
-              className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-primary resize-none"
-              rows={2}
-              required
-            ></textarea>
-          </div>
-
-          <div className="md:col-span-2 bg-background border border-border rounded-xl p-4">
-            <div className="flex items-center justify-between mb-3">
-              <FieldLabel>Full Description Paragraphs</FieldLabel>
-              <button
-                type="button"
-                onClick={addDescriptionBlock}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-border text-xs font-bold uppercase tracking-widest hover:bg-surface"
-              >
-                <Plus className="w-3 h-3" /> Add Paragraph
-              </button>
-            </div>
-            <div className="flex flex-col gap-3">
-              {form.description_blocks.map((paragraph, index) => (
-                <div key={`description-${index}`}>
-                  <div className="flex items-center justify-between mb-2">
-                    <p className="text-xs font-bold tracking-widest uppercase text-text-tertiary">Paragraph {index + 1}</p>
-                    {form.description_blocks.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeDescriptionBlock(index)}
-                        className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-error hover:opacity-80"
-                      >
-                        <Trash2 className="w-3 h-3" /> Remove
-                      </button>
-                    )}
-                  </div>
-                  <textarea
-                    value={paragraph}
-                    onChange={event => updateDescriptionBlock(index, event.target.value)}
-                    placeholder="Write this section of the full description..."
-                    className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-sm outline-none focus:border-primary resize-y"
-                    rows={3}
-                  ></textarea>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="md:col-span-2 bg-background border border-border rounded-xl p-4">
-            <div className="flex items-center justify-between mb-3">
-              <FieldLabel>Specifications (Key / Value)</FieldLabel>
-              <button
-                type="button"
-                onClick={addSpecRow}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-border text-xs font-bold uppercase tracking-widest hover:bg-surface"
-              >
-                <Plus className="w-3 h-3" /> Add Spec
-              </button>
-            </div>
-            <div className="flex flex-col gap-2">
-              {form.specs.map((row, index) => (
-                <div key={`spec-${index}`} className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] gap-2 items-center">
-                  <input
-                    value={row.key}
-                    onChange={event => updateSpecRow(index, 'key', event.target.value)}
-                    placeholder="Field name (e.g. Display)"
-                    className="w-full min-w-0 bg-surface border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-primary"
-                  />
-                  <input
-                    value={row.value}
-                    onChange={event => updateSpecRow(index, 'value', event.target.value)}
-                    placeholder="Value (e.g. 6.7-inch OLED)"
-                    className="w-full min-w-0 bg-surface border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-primary"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeSpecRow(index)}
-                    className="justify-self-start sm:justify-self-auto inline-flex items-center justify-center w-9 h-9 rounded-lg border border-border text-error hover:bg-error/10"
-                    aria-label="Remove specification row"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="md:col-span-2 bg-background border border-border rounded-xl p-4">
-            <div className="flex items-center justify-between mb-3">
-              <FieldLabel>Gallery Image URLs</FieldLabel>
-              <button
-                type="button"
-                onClick={addGalleryRow}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-border text-xs font-bold uppercase tracking-widest hover:bg-surface"
-              >
-                <Plus className="w-3 h-3" /> Add Image
-              </button>
-            </div>
-            <div className="flex flex-col gap-2">
-              {form.gallery.map((url, index) => (
-                <div key={`gallery-${index}`} className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] gap-2 items-center">
-                  <input
-                    value={url}
-                    onChange={event => updateGalleryRow(index, event.target.value)}
-                    placeholder="https://..."
-                    className="w-full min-w-0 bg-surface border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-primary"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeGalleryRow(index)}
-                    className="justify-self-start sm:justify-self-auto inline-flex items-center justify-center w-9 h-9 rounded-lg border border-border text-error hover:bg-error/10"
-                    aria-label="Remove gallery row"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <label className="flex items-center gap-2 text-sm font-medium text-text-secondary">
-              <input
-                type="checkbox"
-                checked={form.is_featured}
-                onChange={event => updateField('is_featured', event.target.checked)}
-              />
-              Featured Product
-            </label>
-            <label className="flex items-center gap-2 text-sm font-medium text-text-secondary">
-              <input
-                type="checkbox"
-                checked={form.is_active}
-                onChange={event => updateField('is_active', event.target.checked)}
-              />
-              Active Product
-            </label>
-          </div>
-
-          <button
-            type="submit"
-            disabled={saving}
-            className="md:col-span-2 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-text-primary text-background text-sm font-bold hover:bg-primary transition-colors disabled:opacity-60"
-          >
-            {editingProduct ? <PencilLine className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-            {saving ? 'Saving...' : editingProduct ? 'Update Product' : 'Create Product'}
-          </button>
-        </form>
-      </section>
-
-      <section className="bg-surface border border-border rounded-2xl p-6">
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <h2 className="text-xl font-heading font-black">Catalog Inventory</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] gap-2.5 mb-4">
+          <input
+            value={categoryNameInput}
+            onChange={event => setCategoryNameInput(event.target.value)}
+            placeholder="Category name"
+            className="w-full min-w-0 bg-[#f2f5fa] border border-[#e1e8f3] rounded-xl px-3 py-2.5 text-sm outline-none focus:border-[#1a5ee8]"
+          />
+          <input
+            value={categorySlugInput}
+            onChange={event => setCategorySlugInput(normalizeCategorySlug(event.target.value))}
+            placeholder="Slug (optional)"
+            className="w-full min-w-0 bg-[#f2f5fa] border border-[#e1e8f3] rounded-xl px-3 py-2.5 text-sm outline-none focus:border-[#1a5ee8]"
+          />
           <button
             type="button"
-            onClick={() => void loadProducts()}
-            className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-widest text-text-tertiary hover:text-primary"
+            onClick={() => void handleCategorySubmit()}
+            disabled={categorySaving}
+            className="justify-self-start sm:justify-self-auto inline-flex items-center gap-1 px-3 py-2.5 rounded-xl bg-[#1a5ee8] text-white text-xs font-bold uppercase tracking-widest disabled:opacity-60"
           >
-            <RefreshCw className="w-3 h-3" /> Refresh
+            <Plus className="w-3 h-3" /> {categorySaving ? 'Saving...' : editingCategoryId ? 'Update' : 'Add'}
           </button>
         </div>
 
-        <div className="relative mb-4">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary" />
-          <input
-            value={search}
-            onChange={event => setSearch(event.target.value)}
-            onKeyDown={event => {
-              if (event.key === 'Enter') {
-                event.preventDefault();
-                void loadProducts();
-              }
-            }}
-            placeholder="Search products..."
-            className="w-full bg-background border border-border rounded-xl pl-9 pr-4 py-3 text-sm outline-none focus:border-primary"
-          />
-        </div>
-
-        {error ? (
-          <div className="border border-error/30 bg-error/10 text-error rounded-xl px-4 py-3 text-sm mb-3">{error}</div>
-        ) : null}
-
-        {loading ? (
-          <p className="text-sm text-text-secondary">Loading products...</p>
-        ) : products.length === 0 ? (
-          <p className="text-sm text-text-secondary">No products found.</p>
+        {categories.length === 0 ? (
+          <p className="text-sm text-slate-500">No categories yet. Add your first category to start creating products.</p>
         ) : (
-          <div className="flex flex-col gap-3 max-h-[920px] overflow-y-auto pr-1">
-            {products.map(product => (
-              <article key={product.id} className="bg-background border border-border rounded-xl p-4">
-                <div className="flex items-start justify-between gap-3 mb-2">
-                  <div>
-                    <h3 className="font-bold leading-tight">{product.name}</h3>
-                    <p className="text-xs text-text-tertiary uppercase tracking-widest mt-1">
-                      {product.brand} • {product.category_label}
-                    </p>
-                  </div>
-                  <span
-                    className={`text-[10px] font-bold uppercase tracking-widest border px-2 py-1 rounded ${
-                      product.is_active
-                        ? 'border-success/30 text-success bg-success/10'
-                        : 'border-warning/30 text-warning bg-warning/10'
-                    }`}
-                  >
-                    {product.is_active ? 'Active' : 'Deactivated'}
+          <div className="flex flex-col gap-2 max-h-60 overflow-y-auto pr-1">
+            {categories.map(category => (
+              <div key={category.id} className="flex items-center justify-between gap-3 rounded-xl border border-[#e2e8f2] bg-[#f8faff] px-3 py-2.5">
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-slate-800 truncate">{category.name}</p>
+                  <p className="text-[11px] text-slate-500 uppercase tracking-widest">{category.slug}</p>
+                </div>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-white border border-[#dde5f1] text-slate-500">
+                    {category.product_count} products
                   </span>
-                </div>
-
-                <p className="text-xs text-text-secondary mb-3 line-clamp-2">{product.short_description}</p>
-
-                <div className="flex items-center justify-between gap-3 text-xs mb-3">
-                  <span className="font-bold">${Number(product.price).toFixed(2)}</span>
-                  <span className="text-text-tertiary">Stock: {product.stock}</span>
-                </div>
-
-                <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    onClick={() => handleEdit(product)}
-                    className="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-border text-xs font-bold uppercase tracking-widest hover:bg-surface"
+                    onClick={() => startCategoryEdit(category)}
+                    className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-[#dce3ef] bg-white hover:text-[#1a5ee8]"
+                    aria-label={`Edit category ${category.name}`}
                   >
-                    <PencilLine className="w-3 h-3" /> Edit
+                    <PencilLine className="w-3 h-3" />
                   </button>
-
-                  {product.is_active ? (
-                    <button
-                      type="button"
-                      onClick={() => handleDeactivate(product)}
-                      className="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-error/30 text-error text-xs font-bold uppercase tracking-widest hover:bg-error/10"
-                    >
-                      <Power className="w-3 h-3" /> Deactivate
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => void handleReactivate(product)}
-                      className="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-success/30 text-success text-xs font-bold uppercase tracking-widest hover:bg-success/10"
-                    >
-                      <Power className="w-3 h-3" /> Reactivate
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => void handleDeleteCategory(category)}
+                    className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-[#dce3ef] bg-white hover:text-rose-500"
+                    aria-label={`Delete category ${category.name}`}
+                  >
+                    <Trash2 className="w-3 h-3" />
+                  </button>
                 </div>
-              </article>
+              </div>
             ))}
           </div>
         )}

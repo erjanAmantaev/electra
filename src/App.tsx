@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
@@ -28,6 +28,50 @@ const AdminOrders = lazy(() => import('./pages/admin/AdminOrders'));
 const AdminOverview = lazy(() => import('./pages/admin/AdminOverview'));
 const AdminProducts = lazy(() => import('./pages/admin/AdminProducts'));
 
+function AppShell() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  return (
+    <div className={`flex flex-col min-h-screen text-text-primary ${isAdminRoute ? 'bg-[#f3f6fb]' : 'bg-background'}`}>
+      {!isAdminRoute && <Navbar />}
+      <main className="flex-grow">
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/product" element={<Navigate to="/catalog?category=smartphones" replace />} />
+            <Route path="/product/:slug" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/success" element={<OrderSuccess />} />
+            <Route path="/orders/:orderNumber" element={<OrderDetail />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <AdminLayout />
+                </AdminRoute>
+              }
+            >
+              <Route index element={<AdminOverview />} />
+              <Route path="products" element={<AdminProducts />} />
+              <Route path="orders" element={<AdminOrders />} />
+            </Route>
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/register" element={<SignUp />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </main>
+      {!isAdminRoute && <Footer />}
+    </div>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider>
@@ -36,42 +80,7 @@ function App() {
           <Router>
             <ScrollToTop />
             <Toaster position="bottom-right" richColors />
-            <div className="flex flex-col min-h-screen bg-background text-text-primary">
-              <Navbar />
-              <main className="flex-grow">
-                <Suspense fallback={<PageLoader />}>
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/catalog" element={<Catalog />} />
-                    <Route path="/product" element={<Navigate to="/catalog?category=smartphones" replace />} />
-                    <Route path="/product/:slug" element={<ProductDetail />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/success" element={<OrderSuccess />} />
-                    <Route path="/orders/:orderNumber" element={<OrderDetail />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route
-                      path="/admin"
-                      element={
-                        <AdminRoute>
-                          <AdminLayout />
-                        </AdminRoute>
-                      }
-                    >
-                      <Route index element={<AdminOverview />} />
-                      <Route path="products" element={<AdminProducts />} />
-                      <Route path="orders" element={<AdminOrders />} />
-                    </Route>
-                    <Route path="/about" element={<AboutUs />} />
-                    <Route path="/support" element={<Support />} />
-                    <Route path="/login" element={<SignIn />} />
-                    <Route path="/register" element={<SignUp />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </Suspense>
-              </main>
-              <Footer />
-            </div>
+            <AppShell />
           </Router>
         </CartProvider>
       </AuthProvider>
