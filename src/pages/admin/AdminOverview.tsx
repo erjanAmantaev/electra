@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Activity, Package, ShoppingBag, Users, Wallet } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { getAdminDashboard, type AdminDashboardStats } from '../../lib/storeApi';
 import { useAuth } from '../../context/AuthContext';
 
@@ -127,7 +128,7 @@ export default function AdminOverview() {
         <section className="rounded-[26px] border border-[#dde5f1] bg-white p-6">
           <div className="flex items-center justify-between mb-4">
             <p className="text-[12px] font-bold tracking-widest uppercase text-slate-500">System Activity Feed</p>
-            <button type="button" className="text-xs font-bold text-[#1a5ee8] hover:underline">View All Logs</button>
+            <Link to="/admin/analytics" className="text-xs font-bold text-[#1a5ee8] hover:underline">View All Logs</Link>
           </div>
           <div className="space-y-3">
             <article className="rounded-2xl border border-[#e5ebf5] bg-[#f8faff] px-4 py-3 flex items-start gap-3">
@@ -161,8 +162,8 @@ export default function AdminOverview() {
           </div>
         </div>
         <div className="flex items-center gap-2.5">
-          <button type="button" className="px-5 py-2.5 rounded-full bg-slate-800 text-white text-xs font-bold tracking-widest uppercase">Security Logs</button>
-          <button type="button" className="px-5 py-2.5 rounded-full bg-white text-slate-700 text-xs font-bold tracking-widest uppercase">Support Portal</button>
+          <Link to="/admin/analytics" className="px-5 py-2.5 rounded-full bg-slate-800 text-white text-xs font-bold tracking-widest uppercase">Security Logs</Link>
+          <Link to="/support" className="px-5 py-2.5 rounded-full bg-white text-slate-700 text-xs font-bold tracking-widest uppercase">Support Portal</Link>
         </div>
       </section>
     </div>

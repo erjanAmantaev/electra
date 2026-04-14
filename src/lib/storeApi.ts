@@ -248,6 +248,63 @@ export type AdminOrder = OrderHistoryItem & {
   user_name: string;
 };
 
+export type AdminCustomer = {
+  id: number;
+  full_name: string;
+  username: string;
+  email: string;
+  is_admin: boolean;
+  date_joined: string;
+  last_login: string | null;
+  orders_count: number;
+  total_spent: string;
+  last_order_at: string | null;
+};
+
+export type AdminAnalyticsKpis = {
+  revenue_total: string;
+  orders_total: number;
+  orders_today: number;
+  users_total: number;
+  products_total: number;
+  active_products: number;
+  avg_order_value: string;
+};
+
+export type AdminAnalyticsRevenuePoint = {
+  date: string;
+  label: string;
+  orders: number;
+  revenue: string;
+};
+
+export type AdminAnalyticsTopProduct = {
+  product_slug: string;
+  product_name: string;
+  brand: string;
+  quantity_sold: number;
+  revenue: string;
+};
+
+export type AdminAnalyticsCategoryPoint = {
+  category: string;
+  label: string;
+  count: number;
+};
+
+export type AdminAnalyticsStatusPoint = {
+  status: string;
+  count: number;
+};
+
+export type AdminAnalytics = {
+  kpis: AdminAnalyticsKpis;
+  revenue_series: AdminAnalyticsRevenuePoint[];
+  top_products: AdminAnalyticsTopProduct[];
+  category_distribution: AdminAnalyticsCategoryPoint[];
+  status_breakdown: AdminAnalyticsStatusPoint[];
+};
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'https://electra-production.up.railway.app/api';
 const STORAGE_TOKEN_KEY = 'electra_access_token';
 const STORAGE_REFRESH_KEY = 'electra_refresh_token';
@@ -566,6 +623,22 @@ export async function deactivateAdminProduct(token: string, productId: number): 
 
 export async function getAdminOrders(token: string): Promise<AdminOrder[]> {
   return apiFetch<AdminOrder[]>('/admin/orders/', {
+    headers: getAuthHeaders(token),
+  });
+}
+
+export async function getAdminCustomers(token: string, search?: string): Promise<AdminCustomer[]> {
+  const query = new URLSearchParams();
+  if (search) query.set('search', search);
+
+  const queryString = query.toString();
+  return apiFetch<AdminCustomer[]>(`/admin/customers/${queryString ? `?${queryString}` : ''}`, {
+    headers: getAuthHeaders(token),
+  });
+}
+
+export async function getAdminAnalytics(token: string): Promise<AdminAnalytics> {
+  return apiFetch<AdminAnalytics>('/admin/analytics/', {
     headers: getAuthHeaders(token),
   });
 }

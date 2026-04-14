@@ -24,6 +24,8 @@ const SignIn = lazy(() => import('./pages/SignIn'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
+const AdminAnalytics = lazy(() => import('./pages/admin/AdminAnalytics'));
+const AdminCustomers = lazy(() => import('./pages/admin/AdminCustomers'));
 const AdminOrders = lazy(() => import('./pages/admin/AdminOrders'));
 const AdminOverview = lazy(() => import('./pages/admin/AdminOverview'));
 const AdminProducts = lazy(() => import('./pages/admin/AdminProducts'));
@@ -58,6 +60,8 @@ function AppShell() {
               <Route index element={<AdminOverview />} />
               <Route path="products" element={<AdminProducts />} />
               <Route path="orders" element={<AdminOrders />} />
+              <Route path="customers" element={<AdminCustomers />} />
+              <Route path="analytics" element={<AdminAnalytics />} />
             </Route>
             <Route path="/about" element={<AboutUs />} />
             <Route path="/support" element={<Support />} />

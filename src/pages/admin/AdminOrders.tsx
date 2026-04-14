@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import { getAdminOrders, type AdminOrder } from '../../lib/storeApi';
 import { useAuth } from '../../context/AuthContext';
 
@@ -18,12 +20,19 @@ function formatDate(value: string) {
   });
 }
 
+function toCsvValue(value: string | number) {
+  const escaped = String(value).replace(/"/g, '""');
+  return `"${escaped}"`;
+}
+
 export default function AdminOrders() {
   const { token } = useAuth();
+  const navigate = useNavigate();
   const [orders, setOrders] = useState<AdminOrder[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [newsletterEmail, setNewsletterEmail] = useState('');
 
   const pageSize = 6;
 
@@ -88,13 +97,59 @@ export default function AdminOrders() {
     return 'bg-rose-100 text-rose-700';
   };
 
+  const handleExportCsv = () => {
+    if (orders.length === 0) {
+      toast.error('No orders available for export.');
+      return;
+    }
+
+    const header = ['order_number', 'customer_name', 'customer_email', 'status', 'item_count', 'total_amount', 'placed_at'];
+    const rows = orders.map(order =>
+      [
+        order.order_number,
+        order.user_name,
+        order.user_email,
+        order.status,
+        order.item_count,
+        order.total_amount,
+        order.placed_at,
+      ]
+        .map(toCsvValue)
+        .join(',')
+    );
+
+    const csv = [header.join(','), ...rows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `orders-${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    toast.success('Orders exported to CSV.');
+  };
+
   return (
     <div className="space-y-5">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <p className="text-slate-500 text-sm">{orders.length} total orders recorded.</p>
         <div className="flex items-center gap-2">
-          <button type="button" className="px-4 py-2 rounded-full bg-[#dfe8f7] text-[#1a5ee8] text-xs font-bold">Export CSV</button>
-          <button type="button" className="px-4 py-2 rounded-full bg-[#1a5ee8] text-white text-xs font-bold shadow-[0_8px_20px_rgba(26,94,232,0.35)]">+ New Order</button>
+          <button
+            type="button"
+            onClick={handleExportCsv}
+            className="px-4 py-2 rounded-full bg-[#dfe8f7] text-[#1a5ee8] text-xs font-bold"
+          >
+            Export CSV
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate('/catalog')}
+            className="px-4 py-2 rounded-full bg-[#1a5ee8] text-white text-xs font-bold shadow-[0_8px_20px_rgba(26,94,232,0.35)]"
+          >
+            + New Order
+          </button>
         </div>
       </div>
 
@@ -207,9 +262,24 @@ export default function AdminOrders() {
           <input
             type="email"
             placeholder="Enter administrator email"
+            value={newsletterEmail}
+            onChange={event => setNewsletterEmail(event.target.value)}
             className="flex-1 h-11 rounded-full border border-[#d5ddec] bg-white px-4 text-sm outline-none focus:border-[#1a5ee8]"
           />
-          <button type="button" className="h-11 px-6 rounded-full bg-[#1a5ee8] text-white text-sm font-bold">Subscribe Now</button>
+          <button
+            type="button"
+            onClick={() => {
+              if (!newsletterEmail.trim()) {
+                toast.error('Enter an email before subscribing.');
+                return;
+              }
+              toast.success(`Subscribed ${newsletterEmail.trim()} to admin digest.`);
+              setNewsletterEmail('');
+            }}
+            className="h-11 px-6 rounded-full bg-[#1a5ee8] text-white text-sm font-bold"
+          >
+            Subscribe Now
+          </button>
         </div>
       </section>
     </div>
