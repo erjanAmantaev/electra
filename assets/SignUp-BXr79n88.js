@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-DyTGnfRu.js";import{t}from"./AuthGateway-DQL1x3RC.js";var n=e();function r(){return(0,n.jsx)(t,{initialMode:`register`})}export{r as default};
